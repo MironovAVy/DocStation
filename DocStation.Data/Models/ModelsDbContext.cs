@@ -10,18 +10,13 @@ namespace DocStation.Data.Models
 {
     public class ModelsDBContecx : DbContext
     {
-
         public DbSet<HDepartments> HDepartments { get; set; }
         public DbSet<HPositions> HPositions { get; set; }
         public DbSet<HSubsidiaries> HSubsidiaries { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("YourConnectionStringHere");
-        }
         public ModelsDBContecx(DbContextOptions<ModelsDBContecx> options) : base(options)
         {
-        }
+		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
