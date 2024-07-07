@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DocStation.Data.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Data.SqlClient;
 
 namespace DocStation.Data.Migrations
 {
@@ -16,8 +17,15 @@ namespace DocStation.Data.Migrations
 				var db = scope.ServiceProvider.GetRequiredService<ModelsDBContecx>();
 				Console.WriteLine($"ConnectionString = \"{db.Database.GetConnectionString()}\"");
 				Console.WriteLine("Migrations started");
-				db.Database.Migrate();
-				Console.WriteLine("Migrations completed");
+                try 
+                {
+                    db.Database.Migrate();
+					Console.WriteLine("Migrations completed");
+				} 
+                catch(SqlException e)
+                {
+					Console.WriteLine($"Failed to appy migrations, {e.Message}");
+				}
 			}
 
 			host.Run();
