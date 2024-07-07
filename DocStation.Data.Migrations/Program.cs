@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DocStation.Data.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DocStation.Data.Migrations
 {
@@ -23,3 +24,4 @@ namespace DocStation.Data.Migrations
                 });
     }
 }
+
