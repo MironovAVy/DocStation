@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.Data", "DocStation.Data\DocStation.Data.csproj", "{4336C03F-3997-4BD7-BB01-CC127E6F55FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocStation.Data", "DocStation.Data\DocStation.Data.csproj", "{4336C03F-3997-4BD7-BB01-CC127E6F55FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.Api", "DocStation.Api\DocStation.Api.csproj", "{C324F5CE-0301-4E32-AA82-A2CE66936CA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocStation.Api", "DocStation.Api\DocStation.Api.csproj", "{C324F5CE-0301-4E32-AA82-A2CE66936CA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.DataService", "DocStation.DataService\DocStation.DataService.csproj", "{BA639A44-0000-478D-8829-0F31CB2AA5FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocStation.DataService", "DocStation.DataService\DocStation.DataService.csproj", "{BA639A44-0000-478D-8829-0F31CB2AA5FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.EmailService", "DocStation.EmailService\DocStation.EmailService.csproj", "{A9FC834F-068E-4A91-B805-ADC2788FA66A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocStation.EmailService", "DocStation.EmailService\DocStation.EmailService.csproj", "{A9FC834F-068E-4A91-B805-ADC2788FA66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.Queue", "DocStation.Queue\DocStation.Queue.csproj", "{FE58CAF2-4E0B-4FA5-97C8-7027960AFEB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocStation.Queue", "DocStation.Queue\DocStation.Queue.csproj", "{FE58CAF2-4E0B-4FA5-97C8-7027960AFEB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocStation.Data.Migrations", "DocStation.Data.Migrations\DocStation.Data.Migrations.csproj", "{05FBCE7D-9AF0-4549-AE9B-7AFD376D60AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FE58CAF2-4E0B-4FA5-97C8-7027960AFEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE58CAF2-4E0B-4FA5-97C8-7027960AFEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE58CAF2-4E0B-4FA5-97C8-7027960AFEB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05FBCE7D-9AF0-4549-AE9B-7AFD376D60AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05FBCE7D-9AF0-4549-AE9B-7AFD376D60AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05FBCE7D-9AF0-4549-AE9B-7AFD376D60AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05FBCE7D-9AF0-4549-AE9B-7AFD376D60AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
