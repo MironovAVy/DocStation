@@ -17,22 +17,23 @@ namespace DocStation.Api.Controllers
         }
         [HttpGet]
 
-        public ActionResult GetDepartments()
+        public ActionResult<IReadOnlyCollection<DepartmentsDto>> GetDepartments()
         {
-            var departments = new[]
-            {
-            _departmentService.GetAll() };
-            return Ok(departments);
-            }
+            var departments = _departmentService.GetAll();
+			//ToDo: convert from HDepartments[] to DepartmentsDto[]
+            var departmentsDtos = ...
+			return Ok(departmentsDtos);
         }
 
 
         [HttpPost]
         
-        public ActionResult AddDepartment  ([FromBody] NewDepartmentsDto newDepartmentsDto)
+        public ActionResult AddDepartment([FromBody] NewDepartmentsDto newDepartmentsDto)
         {
-            
-            _departmentService.AddDepartment(newDepartmentsDto);
+            //ToDo: Convert from NewDepartmentsDto to HDepartments
+            var newDepartment = ...;
+			_departmentService.Add(newDepartment);
+            return Ok();
         }
     }
     public record DepartmentsDto(int Id = default, string Name = default, string Description = default);
