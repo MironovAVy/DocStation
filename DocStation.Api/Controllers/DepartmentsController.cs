@@ -8,19 +8,7 @@ using AutoMapper.Execution;
 
 namespace DocStation.Api.Controllers
 {
-	public class AppMappingProfile : Profile
-	{
-		public AppMappingProfile()
-		{
-			CreateMap<HDepartments, DepartmentsDto>().ReverseMap();
-			
-
-
-        }
-
-		
-
-    }
+	
 	
     [Route("[controller]")]
 	[ApiController]
@@ -29,30 +17,32 @@ namespace DocStation.Api.Controllers
 	{
 		private readonly IDepartmentService _departmentService;
 		private readonly IMapper _mapper;
-		public DepartmentsController(IDepartmentService departmentService)
+		public DepartmentsController(IDepartmentService departmentService, IMapper mapper)
 		{
 			_departmentService = departmentService;
-			_mapper = _mapper;
+			_mapper = mapper;
 		}
+
 		[HttpGet]
 
-		public ActionResult<IReadOnlyCollection<DepartmentsDto>> GetDepartments()
+		public IReadOnlyCollection<DepartmentsDto> GetDepartments()
 		{
 			var departments = _departmentService.GetAll();
+			
 			//ToDo: convert from HDepartments[] to DepartmentsDto[]
 			var departmentsDtos = _mapper.Map<IReadOnlyCollection<DepartmentsDto>>(departments);
-			return Ok(departmentsDtos);
+			return departmentsDtos;
 		}
 
 
 		[HttpPost]
 		
-		public ActionResult AddDepartment([FromBody] NewDepartmentsDto newDepartmentsDto)
+		public int AddDepartment([FromBody] NewDepartmentsDto newDepartmentsDto)
 		{
 			//ToDo: Convert from NewDepartmentsDto to HDepartments
 			var newDepartment = _mapper.Map<HDepartments>(newDepartmentsDto);
 			_departmentService.Add(newDepartment);
-			return Ok();
+			return newDepartment.Id;
 		}
 	}
 	public record DepartmentsDto(int Id = default, string Name = default, string Description = default);
