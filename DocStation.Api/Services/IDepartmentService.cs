@@ -8,9 +8,9 @@ namespace DocStation.Api.Services
     public class DepartmentService : IDepartmentService 
     {
         private readonly IDictionary<int, HDepartments> _storage = new ConcurrentDictionary<int, HDepartments>();
-        private int _currentId = 0;
+        private int _currentId = 0; 
 
-        public int Add(HDepartments department)
+        public void Add(HDepartments department)
         {
             //ToDo: implement method, add entity to _storage Метод Add отдавал id добавленного департмента и этот Id был уникален
             if (department == null)
@@ -19,8 +19,10 @@ namespace DocStation.Api.Services
             }
             int newId = ++_currentId;
             department.Id = newId;
+
             _storage[newId] = department;
-            return newId;
+           
+
         }
 
         public IReadOnlyCollection<HDepartments> GetAll()
