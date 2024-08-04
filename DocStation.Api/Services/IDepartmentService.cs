@@ -7,10 +7,11 @@ namespace DocStation.Api.Services
     public interface IDepartmentService
 
     {
-        IReadOnlyCollection<HDepartments> GetAll();
+		//Task <IReadOnlyCollection<HDepartments>> GetAll()
+		IReadOnlyCollection<HDepartments> GetAll();
 
-
-        void Add(HDepartments department);
+		//Task Add(HDepartments department)
+		void Add(HDepartments department);
 
         
     }
