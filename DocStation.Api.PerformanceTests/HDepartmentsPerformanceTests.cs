@@ -9,7 +9,7 @@ namespace DocStation.Api.PerformanceTests
 		[Test]
 		public async Task GetDepartments_CanExecuteMultipleRequests_DoesNotFailInTimeoutException()
 		{
-			const int threadCount = 1;
+			const int threadCount = 10000;
 			var tasks = new List<Task<RestResponse<List<DepartmentsDto>>>>();
 
 			for(int i = 0; i < threadCount; i++)
@@ -20,7 +20,9 @@ namespace DocStation.Api.PerformanceTests
 			await Task.WhenAll(tasks);
 
 			var taskResutls = tasks.Select(t => t.Result);
-			Assert.That(taskResutls.All(x => x.StatusCode == System.Net.HttpStatusCode.OK), $"STATUS CODES = \"{string.Join(",", taskResutls.Select(x => x.StatusCode))}\"");
+			var okCount = taskResutls.Count(x => x.StatusCode == System.Net.HttpStatusCode.OK);
+			var failedCount = taskResutls.Count(x => x.StatusCode != System.Net.HttpStatusCode.OK);
+			Assert.That(okCount, Is.EqualTo(threadCount), $"OK = {okCount}, FAILED = {failedCount}");
 		}
 	}
 }
