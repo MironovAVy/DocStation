@@ -8,10 +8,10 @@ namespace DocStation.Api.Services
 
     {
 		//Task <IReadOnlyCollection<HDepartments>> GetAll()
-		IReadOnlyCollection<HDepartments> GetAll();
+		Task  <IReadOnlyCollection<HDepartments>> GetAllAsync();
 
 		//Task Add(HDepartments department)
-		void Add(HDepartments department);
+		Task AddAsync(HDepartments department);
 
         
     }

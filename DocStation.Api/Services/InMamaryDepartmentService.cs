@@ -23,10 +23,22 @@ namespace DocStation.Api.Services
 
         }
 
-        public IReadOnlyCollection<HDepartments> GetAll()
+        public async  Task AddAsync(HDepartments department)
         {
-            //ToDo: implement method, get all entities from storage
-            return new List<HDepartments>(_storage.Values);
+            if (department == null)
+            {
+                throw new ArgumentNullException(nameof(department));
+            }
+            int newId = ++_currentId;
+            department.Id = newId;
+
+            _storage[newId] =  department;
+            await Task.Run(() => _storage[newId] = department);
+        }
+
+        public Task<IReadOnlyCollection<HDepartments>> GetAllAsync()
+        {
+            return Task.FromResult((IReadOnlyCollection<HDepartments>)_storage.Values);
         }
     }
 }

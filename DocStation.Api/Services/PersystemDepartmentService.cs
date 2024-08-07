@@ -1,5 +1,6 @@
 ﻿using DocStation.Data.Models;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensions.Msal;
 
 namespace DocStation.Api.Services
 {
@@ -12,17 +13,23 @@ namespace DocStation.Api.Services
             _modelsDBContecx = modelsDBContecx;
         }
 
-        public void Add(HDepartments department)
-        {
-            _modelsDBContecx.HDepartments.Add(department);
-            _modelsDBContecx.SaveChanges();
-        }
+        
 
-        public IReadOnlyCollection<HDepartments> GetAll()
+        public async Task AddAsync(HDepartments department)
         {
-            return _modelsDBContecx.HDepartments.ToArray();
+            await _modelsDBContecx.HDepartments.AddAsync(department);
+            await _modelsDBContecx.SaveChangesAsync();
         }
 
 
+
+
+        public async Task<IReadOnlyCollection<HDepartments>> GetAllAsync()
+        {
+
+            var departments = await _modelsDBContecx.HDepartments.ToListAsync();
+            return departments.AsReadOnly();
+        }
     }
+    
 }

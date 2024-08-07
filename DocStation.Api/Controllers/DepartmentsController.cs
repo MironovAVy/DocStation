@@ -27,7 +27,7 @@ namespace DocStation.Api.Controllers
 
 		public IReadOnlyCollection<DepartmentsDto> GetDepartments()
 		{
-			var departments = _departmentService.GetAll();
+			var departments = _departmentService.GetAllAsync();
 			
 			//ToDo: convert from HDepartments[] to DepartmentsDto[]
 			var departmentsDtos = _mapper.Map<IReadOnlyCollection<DepartmentsDto>>(departments);
@@ -41,7 +41,7 @@ namespace DocStation.Api.Controllers
 		{
 			//ToDo: Convert from NewDepartmentsDto to HDepartments
 			var newDepartment = _mapper.Map<HDepartments>(newDepartmentsDto);
-			_departmentService.Add(newDepartment);
+			_departmentService.AddAsync(newDepartment);
 			return newDepartment.Id;
 		}
 	}
