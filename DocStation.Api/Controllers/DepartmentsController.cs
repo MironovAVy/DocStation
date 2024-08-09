@@ -25,24 +25,26 @@ namespace DocStation.Api.Controllers
 
 		[HttpGet]
 
-		public IReadOnlyCollection<DepartmentsDto> GetDepartments()
+		public async Task<IReadOnlyCollection<DepartmentsDto>> GetDepartments()
 		{
-			var departments = _departmentService.GetAllAsync();
 			
+
 			//ToDo: convert from HDepartments[] to DepartmentsDto[]
-			var departmentsDtos = _mapper.Map<IReadOnlyCollection<DepartmentsDto>>(departments);
-			return departmentsDtos;
+			var departments = await _departmentService.GetAllAsync();
+            var departmentsDtos = _mapper.Map<IReadOnlyCollection<DepartmentsDto>>(departments);
+            return departmentsDtos;
 		}
 
 
 		[HttpPost]
 		
-		public int AddDepartment([FromBody] NewDepartmentsDto newDepartmentsDto)
+		public async Task<int> AddDepartment([FromBody] NewDepartmentsDto newDepartmentsDto)
 		{
 			//ToDo: Convert from NewDepartmentsDto to HDepartments
 			var newDepartment = _mapper.Map<HDepartments>(newDepartmentsDto);
-			_departmentService.AddAsync(newDepartment);
-			return newDepartment.Id;
+            await _departmentService.AddAsync(newDepartment);
+
+            return newDepartment.Id; 
 		}
 	}
 	public record DepartmentsDto(int Id = default, string Name = default, string Description = default);
