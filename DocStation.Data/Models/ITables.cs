@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DocStation.Data.Models
 {
-    public interface ITables
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+	public interface ITables : IEntity
+	{
 
-        public string Description { get; set; }
-    }
+		public string Name { get; set; }
+
+		public string Description { get; set; }
+	}
 }
