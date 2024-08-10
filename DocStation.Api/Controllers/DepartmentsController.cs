@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using AutoMapper;
 
 using AutoMapper.Execution;
+using DocStation.Api.DTOs.HDepartments;
 
 namespace DocStation.Api.Controllers
 {
@@ -47,6 +48,4 @@ namespace DocStation.Api.Controllers
             return newDepartment.Id; 
 		}
 	}
-	public record DepartmentsDto(int Id = default, string Name = default, string Description = default);
-	public record NewDepartmentsDto(string Name = default, string Description = default);
 }

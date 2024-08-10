@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DocStation.Api.Controllers;
+using DocStation.Api.DTOs.HDepartments;
 using DocStation.Data.Models;
 
 namespace DocStation.Api.Mapping
