@@ -1,4 +1,6 @@
-﻿namespace DocStation.Data.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace DocStation.Data.Models
 {
 	public class TUsers : IEntity
 	{
@@ -6,7 +8,6 @@
 
 		public string Email { get; set; }
 
-		//Secure Mode
 		public string Password { get; set; }
 
 		public string UserName { get; set; }

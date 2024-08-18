@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DocStation.Data.Models
 {
-    public class ModelsDBContecx : DbContext
-    {
-        public DbSet<HDepartments> HDepartments { get; set; }
-        public DbSet<HPositions> HPositions { get; set; }
-        public DbSet<HSubsidiaries> HSubsidiaries { get; set; }
+	public class ModelsDBContecx : DbContext
+	{
+		public DbSet<HDepartments> HDepartments { get; set; }
+		public DbSet<HPositions> HPositions { get; set; }
+		public DbSet<HSubsidiaries> HSubsidiaries { get; set; }
+		public DbSet<TUsers> Users { get; set; }
 
-        public ModelsDBContecx(DbContextOptions<ModelsDBContecx> options) : base(options)
-        {
+		//To add migrations only from Nuget package manager
+		public ModelsDBContecx()
+		{
+
+		}
+		//From Api & Migrator
+		public ModelsDBContecx(DbContextOptions<ModelsDBContecx> options) : base(options)
+		{
 		}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+		//To add migrations only from Nuget package manager
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer();
+		}
 
-    }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<TUsers>().HasIndex(u => u.UserName).IsUnique();
+			modelBuilder.Entity<TUsers>().HasIndex(u => u.Email).IsUnique();
+			base.OnModelCreating(modelBuilder);
+		}
+
+	}
 }
