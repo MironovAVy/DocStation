@@ -4,6 +4,7 @@ namespace DocStation.Data.Models
 {
 	public class ModelsDBContecx : DbContext
 	{
+
 		public DbSet<HDepartments> HDepartments { get; set; }
 		public DbSet<HPositions> HPositions { get; set; }
 		public DbSet<HSubsidiaries> HSubsidiaries { get; set; }
@@ -29,6 +30,10 @@ namespace DocStation.Data.Models
 		{
 			modelBuilder.Entity<TUsers>().HasIndex(u => u.UserName).IsUnique();
 			modelBuilder.Entity<TUsers>().HasIndex(u => u.Email).IsUnique();
+			modelBuilder.Entity<HSubsidiaries>()
+				.HasOne(s => s.HDepartment)
+				.WithMany(d => d.HSubsidiaries)
+				.HasForeignKey(s => s.HDepartmentsId);
 			base.OnModelCreating(modelBuilder);
 		}
 

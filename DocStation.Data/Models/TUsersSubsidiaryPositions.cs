@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace DocStation.Data.Models
 {
-    public class HSubsidiaries : ITables
+
+    public class TUsersSubsidiaryPositions : ITables
     {
         public int Id { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         public string Description { get; set; }
-        public int HDepartmentsId { get; set; }
-        public HDepartments HDepartment { get; set; }
+        public string UserId;
+        public string SubsidiaryId;
+        public int PositionId;
+
     }
 }
