@@ -12,7 +12,7 @@ namespace DocStation.Data.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
-        public List<HSubsidiaries> HSubsidiaries { get; set; }
+        public ICollection<HSubsidiaries> HSubsidiaries { get; set; } //лист не используем, используем интефьес с минимальным набора функционала для таблиц наружу 
 
     }
 }

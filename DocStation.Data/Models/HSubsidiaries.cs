@@ -12,7 +12,7 @@ namespace DocStation.Data.Models
         public string Name { get; set; } 
 
         public string Description { get; set; }
-        public int HDepartmentsId { get; set; }
-        public HDepartments HDepartment { get; set; }
+     
+        public virtual HDepartments Department { get; set; }
     }
 }
