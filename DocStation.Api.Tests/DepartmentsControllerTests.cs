@@ -9,20 +9,20 @@ using Moq;
 namespace DocStation.Api.Tests
 {
     [TestFixture]
-    public class DepartmentsControllerTests 
+    public class DepartmentsControllerTests
     {
         private DepartmentsController _departmentsController;
         private Mock<IDepartmentService> _departmentService;
-        
+
 
         [SetUp]
-        
+
 
         public void Setup()
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new DepartmensProfile()); //your automapperprofile 
+                cfg.AddProfile(new DepartmensProfile()); 
             });
             var mapper = mockMapper.CreateMapper();
 
@@ -31,40 +31,37 @@ namespace DocStation.Api.Tests
         }
 
         [Test]
-        public void GetDepartments_NoDepartments_ReturnsEmptyResult()
+        public async Task GetDepartments_NoDepartments_ReturnsEmptyResult()
         {
-            _departmentService.Setup(x => x.GetAll()).Returns(Array.Empty<HDepartments>);
+            _departmentService.Setup(x => x.GetAllAsync()).ReturnsAsync(Array.Empty<HDepartments>());
 
-            var actual = _departmentsController.GetDepartments();
+            var actual = await _departmentsController.GetDepartments();
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Is.Empty);
         }
 
         [Test]
-        public void GetDepartments_HasMultipleDepartments_ReturnsExpectedResult()
+        public async Task GetDepartments_HasMultipleDepartments_ReturnsExpectedResult()
         {
-            
+            var collection = new[]
+            {
+                new HDepartments() { Id = 1, Name = "Name1", Description = "Description1" },
+                new HDepartments() { Id = 2, Name = "Name2", Description = "Description2" }
+            };
 
-            var coolection = new[] { new HDepartments() { Id = 1, Name = "Name1", Description = "Description1" }, new HDepartments() { Id = 2, Name = "Name2", Description = "Description2" } };
+            _departmentService.Setup(x => x.GetAllAsync()).ReturnsAsync(collection);
 
-            _departmentService.Setup(x => x.GetAll()).Returns(coolection);
-
-
-
-            var actual = _departmentsController.GetDepartments();
+            var actual = await _departmentsController.GetDepartments();
 
             Assert.That(actual, Is.Not.Null);
-            
             Assert.That(actual.Count, Is.EqualTo(2));
-
             Assert.That(actual.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(actual.ElementAt(0).Name, Is.EqualTo("Name1"));
             Assert.That(actual.ElementAt(0).Description, Is.EqualTo("Description1"));
             Assert.That(actual.ElementAt(1).Id, Is.EqualTo(2));
             Assert.That(actual.ElementAt(1).Name, Is.EqualTo("Name2"));
             Assert.That(actual.ElementAt(1).Description, Is.EqualTo("Description2"));
-
         }
     }
 }
