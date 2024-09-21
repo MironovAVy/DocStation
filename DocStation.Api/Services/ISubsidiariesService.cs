@@ -10,7 +10,7 @@ namespace DocStation.Api.Services
         //Task <IReadOnlyCollection<HDepartments>> GetAll()
         Task<IReadOnlyCollection<HSubsidiaries>> GetAllAsync();
 
-        //Task Add(HDepartments department)
+        
         Task AddAsync(HSubsidiaries subsidiaries);
 
 

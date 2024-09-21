@@ -41,8 +41,9 @@ namespace DocStation.Api.Controllers
 			//ToDo: Convert from NewSubsidiariesDto to HSubsidiaries
 			var newsubsidiaries = _mapper.Map<HSubsidiaries>(newSubsidiariesDto);
             await _subsidiariesService.AddAsync(newsubsidiaries);
+            
 
-            return newSubsidiariesDto.Id; 
+            return newsubsidiaries.Id; 
 		}
 	}
 }
