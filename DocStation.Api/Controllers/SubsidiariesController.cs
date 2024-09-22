@@ -44,7 +44,10 @@ namespace DocStation.Api.Controllers
             var newSubsidiary = _mapper.Map<HSubsidiaries>(newSubsidiariesDto);
             await _subsidiariesService.AddAsync(newSubsidiary);
 
-            return CreatedAtAction(nameof(GetSubsidiaries), new { id = newSubsidiary.Id }, newSubsidiary);
+            return Ok(newSubsidiary.Id);
+            //return CreatedAtAction(nameof(GetSubsidiaries), new { id = newSubsidiary.Id }, newSubsidiary);
+            //return StatusCode(201, new { id = newSubsidiary.Id });
         }
     }
+    
 }
