@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IDepartmentService, PersystemDepartmentService>();
 builder.Services.AddScoped<ISubsidiariesService, PersystemSubsidiariesService>();
+//builder.Services.AddScoped<IDepartmentService, IDepartmentService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

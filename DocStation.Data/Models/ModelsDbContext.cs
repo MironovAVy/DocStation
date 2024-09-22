@@ -32,7 +32,8 @@ namespace DocStation.Data.Models
 			modelBuilder.Entity<TUsers>().HasIndex(u => u.Email).IsUnique();
 			modelBuilder.Entity<HSubsidiaries>()
 				.HasOne(s => s.Department)
-				.WithMany(d => d.HSubsidiaries);				
+				.WithMany(d => d.HSubsidiaries)
+				.HasForeignKey(s => s.DepartmentId);
 			base.OnModelCreating(modelBuilder);
 		}
 

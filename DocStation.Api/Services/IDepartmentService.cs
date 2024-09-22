@@ -13,6 +13,6 @@ namespace DocStation.Api.Services
 		//Task Add(HDepartments department)
 		Task AddAsync(HDepartments department);
 
-        
+        Task<HDepartments> GetByIdAsync(int id);
     }
 }

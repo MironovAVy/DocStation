@@ -6,44 +6,45 @@ using DocStation.Api.DTOs.SubsidiariesDto;
 
 namespace DocStation.Api.Controllers
 {
-
-
     [Route("[controller]")]
-	[ApiController]
+    [ApiController]
+    public class SubsidiariesController : ControllerBase
+    {
+        private readonly ISubsidiariesService _subsidiariesService;
+        private readonly IMapper _mapper;
+        private readonly IDepartmentService _departmentService;
 
-	public class SubsidiariesController : ControllerBase
-	{
-		private readonly ISubsidiariesService _subsidiariesService;
-		private readonly IMapper _mapper;
-		public SubsidiariesController(ISubsidiariesService subsidiariesService, IMapper mapper)
-		{
+        public SubsidiariesController(ISubsidiariesService subsidiariesService, IMapper mapper, IDepartmentService departmentService)
+        {
             _subsidiariesService = subsidiariesService;
-			_mapper = mapper;
-		}
+            _mapper = mapper;
+            _departmentService = departmentService;
+        }
 
-		[HttpGet]
-
-		public async Task<IReadOnlyCollection<SubsidiariesDto>> GetSubsidiaries()
-		{
-			
-
-			//ToDo: convert from HSubsidiaries[] to SubsidiariesDto[]
-			var subsidiaries = await _subsidiariesService.GetAllAsync();
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyCollection<SubsidiariesDto>>> GetSubsidiaries()
+        {
+            var subsidiaries = await _subsidiariesService.GetAllAsync();
             var subsidiariesDtos = _mapper.Map<IReadOnlyCollection<SubsidiariesDto>>(subsidiaries);
-            return subsidiariesDtos;
-		}
+            return Ok(subsidiariesDtos);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> AddSubsidiary([FromBody] NewSubsidiariesDto newSubsidiariesDto)
+        {
+            // Проверка существования департамента по его Id
+            var department = await _departmentService.GetByIdAsync(newSubsidiariesDto.DepartmentId);
 
-		[HttpPost]
-		
-		public async Task<int> AddSubsidiariesDto([FromBody] NewSubsidiariesDto newSubsidiariesDto)
-		{
-			//ToDo: Convert from NewSubsidiariesDto to HSubsidiaries
-			var newsubsidiaries = _mapper.Map<HSubsidiaries>(newSubsidiariesDto);
-            await _subsidiariesService.AddAsync(newsubsidiaries);
-            
+            if (department == null)
+            {
+                return BadRequest($"Department with Id = {newSubsidiariesDto.DepartmentId} was not found");
+            }
 
-            return newsubsidiaries.Id; 
-		}
-	}
+            // Маппинг и сохранение новой записи
+            var newSubsidiary = _mapper.Map<HSubsidiaries>(newSubsidiariesDto);
+            await _subsidiariesService.AddAsync(newSubsidiary);
+
+            return CreatedAtAction(nameof(GetSubsidiaries), new { id = newSubsidiary.Id }, newSubsidiary);
+        }
+    }
 }

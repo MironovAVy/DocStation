@@ -12,8 +12,7 @@ namespace DocStation.Api.Services
         {
             _modelsDBContecx = modelsDBContecx;
         }
-
-        
+              
 
         public async Task AddAsync(HDepartments department)
         {
@@ -21,14 +20,15 @@ namespace DocStation.Api.Services
             await _modelsDBContecx.SaveChangesAsync();
         }
 
-
-
-
         public async Task<IReadOnlyCollection<HDepartments>> GetAllAsync()
         {
 
             var departments = await _modelsDBContecx.HDepartments.ToListAsync();
             return departments.AsReadOnly();
+        }
+        public async Task<HDepartments> GetByIdAsync(int id)
+        {
+            return await _modelsDBContecx.HDepartments.FindAsync(id);
         }
     }
     

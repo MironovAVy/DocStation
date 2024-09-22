@@ -14,5 +14,9 @@ namespace DocStation.Data.Models
         public string Description { get; set; }
      
         public virtual HDepartments Department { get; set; }
+
+        public int DepartmentId { get; set; }  // Связь с департаментом
+
+    
     }
 }
