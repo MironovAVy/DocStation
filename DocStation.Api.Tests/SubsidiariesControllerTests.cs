@@ -1,10 +1,12 @@
 using AutoMapper;
 using DocStation.Api;
 using DocStation.Api.Controllers;
+using DocStation.Api.DTOs.HDepartments;
 using DocStation.Api.DTOs.SubsidiariesDto;
 using DocStation.Api.Mapping;
 using DocStation.Api.Services;
 using DocStation.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace DocStation.Api.Tests
@@ -42,7 +44,9 @@ namespace DocStation.Api.Tests
             var actual = await _subsidiariesController.GetSubsidiaries();
 
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.Empty);
+            var result = (actual.Result as OkObjectResult)?.Value as IReadOnlyCollection<SubsidiariesDto>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
@@ -59,9 +63,8 @@ namespace DocStation.Api.Tests
             var actual = await _subsidiariesController.GetSubsidiaries();
 
             Assert.That(actual, Is.Not.Null);
-            var result = actual.Result as  IReadOnlyCollection<SubsidiariesDto>;
+            var result = (actual.Result as OkObjectResult)?.Value as IReadOnlyCollection<SubsidiariesDto>;
             Assert.That(result, Is.Not.Null);
-            
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result.ElementAt(0).Id, Is.EqualTo(1));
             Assert.That(result.ElementAt(0).Name, Is.EqualTo("Name1"));
@@ -71,7 +74,33 @@ namespace DocStation.Api.Tests
             Assert.That(result.ElementAt(1).Description, Is.EqualTo("Description2"));
         }
 
+        [Test]
+        public async Task AddSubsidiary_NoSpecifiedDepartmentExist_ReturnsBadStatusCode()
+        {
+            //No need to setup mock return value
+            const int departmentId = 101;
+            var dto = new NewSubsidiariesDto()
+            {
+                Name = "Name",
+                Description = "Description",
+                DepartmentId = departmentId
+            };
+            var actual = await _subsidiariesController.AddSubsidiary(dto);
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Is.InstanceOf<BadRequestObjectResult>());
+
+            //Почитать
+            _subsidiariesService.Verify(s => s.AddAsync(It.IsAny<HSubsidiaries>()), Times.Never);
+            _departmentService.Verify(s => s.GetByIdAsync(departmentId), Times.Exactly(1));
+        }
 
 
+        [Test]
+        public async Task AddSubsidiary_SpecifiedDepartmentExist_ReturnsOkStatusCode()
+        {
+            //How to setup mock return value
+            Assert.Fail("Not implemented");
+        }
     }
 }
